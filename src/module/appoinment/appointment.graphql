@@ -1,0 +1,12 @@
+type Appointment {
+  id: ID!
+  date: String!
+  doctor: Doctor!
+  reason: String!
+  notes: String
+}
+
+type Doctor {
+  id: ID!
+  name: String!
+}

@@ -1,0 +1,40 @@
+type Patient {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  dateOfBirth: String!
+  gender: String!
+  contactInfo: ContactInfo!
+  appointments: [Appointment]!
+  medicalHistory: [MedicalHistory]!
+  medications: [Medication]!
+}
+
+type ContactInfo {
+  phone: String!
+  email: String!
+}
+
+type Appointment {
+  date: String!
+  doctor: Doctor!
+  reason: String!
+  notes: String
+}
+
+type Doctor {
+  id: ID!
+  name: String!
+}
+
+type MedicalHistory {
+  condition: String!
+  diagnosisDate: String!
+  status: String!
+}
+
+type Medication {
+  name: String!
+  dosage: String!
+  frequency: String!
+}

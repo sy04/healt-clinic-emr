@@ -1,0 +1,4 @@
+type Doctor {
+  id: ID!
+  name: String!
+}

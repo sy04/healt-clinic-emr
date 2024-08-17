@@ -1,0 +1,224 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type AppointmentResponse {
+  data: Appointments
+  meta: MetaData!
+}
+
+type Appointments {
+  createdAt: DateTime!
+  date: String!
+  doctor: Doctors!
+  doctorId: String!
+  id: String!
+  isAble: Boolean!
+  notes: String
+  patient: Patients!
+  patientId: String!
+  reason: String
+  updatedAt: DateTime!
+}
+
+input ContactInfoInput {
+  email: String
+  phone: String
+}
+
+type ContactInfos {
+  createdAt: DateTime!
+  email: String!
+  id: String!
+  patient: Patients!
+  patientId: String!
+  phone: String!
+  updatedAt: DateTime!
+}
+
+input CreateAppointmentPayloadDTO {
+  date: String!
+  doctorId: String!
+  patientId: String!
+}
+
+input CreateMedicationDTO {
+  history: MedicalHistory
+  medication: Medication
+  patientId: String!
+}
+
+input CreatePatientDTO {
+  contactInfo: ContactInfoInput!
+  dateOfBirth: String!
+  firstName: String!
+  gender: String!
+  lastName: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input DoctorPayloadDTO {
+  name: String!
+}
+
+type DoctorResponse {
+  data: Doctors
+  meta: MetaData!
+}
+
+type Doctors {
+  appointment: Appointments!
+  createdAt: DateTime!
+  id: String!
+  name: String!
+  updatedAt: DateTime!
+}
+
+type ListMedicalHistoryResponseDTO {
+  histories: [MedicalHistories!]!
+  paginator: Paginator!
+}
+
+type ListMedicationResponseFormat {
+  data: ListMedicalHistoryResponseDTO
+  meta: MetaData!
+}
+
+type MedicalHistories {
+  condition: String!
+  createdAt: DateTime!
+  diagnosisDate: String!
+  id: String!
+  patient: Patients!
+  patientId: String!
+  status: String!
+  updatedAt: DateTime!
+}
+
+input MedicalHistory {
+  condition: String!
+  diagnosisDate: String!
+  status: String!
+}
+
+type MedicalHistoryResponse {
+  data: MedicalHistories
+  meta: MetaData!
+}
+
+input Medication {
+  dosage: String!
+  frequency: String!
+  name: String!
+}
+
+type MedicationResponse {
+  data: Medications
+  meta: MetaData!
+}
+
+type MedicationResponseDTO {
+  history: MedicalHistories!
+  medication: Medications!
+}
+
+type MedicationResponseFormat {
+  data: MedicationResponseDTO
+  meta: MetaData!
+}
+
+type Medications {
+  createdAt: DateTime!
+  dosage: String!
+  frequency: String!
+  id: String!
+  name: String!
+  patient: Patients!
+  patientId: String!
+  updatedAt: DateTime!
+}
+
+type MetaData {
+  code: Int!
+  message: String!
+  success: Boolean!
+}
+
+type Mutation {
+  createAppointment(input: CreateAppointmentPayloadDTO!): AppointmentResponse!
+  createDoctor(input: DoctorPayloadDTO!): DoctorResponse!
+  createMedication(input: CreateMedicationDTO!): MedicationResponseFormat!
+  createPatient(input: CreatePatientDTO!): PatientResponse!
+  deleteDoctor(id: String!): DoctorResponse!
+  deletePatient(id: String!): PatientResponse!
+  updateAppointment(id: String!, input: UpdateAppointmentPayloadDTO!): AppointmentResponse!
+  updateDoctor(id: String!, input: DoctorPayloadDTO!): DoctorResponse!
+  updatePatient(id: String!, input: UpdatePatientDTO!): PatientResponse!
+}
+
+type Paginator {
+  hasNextPage: Boolean!
+  hasPrevPage: Boolean!
+  itemCount: Float!
+  limit: Float!
+  nextPage: Float
+  page: Float!
+  pageCount: Float!
+  prevPage: Float
+  slNo: Float!
+}
+
+input ParamsMedicalHistoryDTO {
+  keyword: String
+  limit: Float!
+  page: Float!
+  pagination: Boolean!
+  patientId: String!
+}
+
+type PatientResponse {
+  data: Patients
+  meta: MetaData!
+}
+
+type Patients {
+  appointments: [Appointments!]
+  contactInfo: ContactInfos
+  createdAt: DateTime!
+  dateOfBirth: String!
+  firstName: String!
+  gender: String!
+  id: String!
+  lastName: String!
+  medicalHistory: [MedicalHistories!]
+  medications: [Medications!]
+  updatedAt: DateTime!
+}
+
+type Query {
+  getAppointment(id: String!): AppointmentResponse!
+  getDoctor(id: String!): DoctorResponse!
+  getMedicalHistory(id: String!): MedicalHistoryResponse!
+  getMedication(id: String!): MedicationResponse!
+  getPatient(id: String!): PatientResponse!
+  listMedicalHistory(params: ParamsMedicalHistoryDTO!): ListMedicationResponseFormat!
+}
+
+input UpdateAppointmentPayloadDTO {
+  date: String
+  isAble: Boolean
+  notes: String
+  reason: String
+}
+
+input UpdatePatientDTO {
+  contactInfo: ContactInfoInput
+  dateOfBirth: String
+  firstName: String
+  gender: String
+  lastName: String
+}
