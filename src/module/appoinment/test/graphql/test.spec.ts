@@ -4,7 +4,6 @@ import { INestApplication } from '@nestjs/common';
 import { AppModule } from 'src/app.module';
 import { AppointmentService } from '../../appointment.service';
 
-// Mock data for the tests
 const mockDate = new Date('2024-08-16T22:38:38.942Z');
 const mockAppointmentResponse = {
   appointment: {

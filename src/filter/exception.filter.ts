@@ -32,7 +32,6 @@ export class AppExceptionFilter implements ExceptionFilter {
         },
       };
 
-      // Log the request details
       this.logger.log(
         {
           method: request.method,
@@ -42,23 +41,19 @@ export class AppExceptionFilter implements ExceptionFilter {
         'Request Details',
       );
 
-      // Log error details
       if (statusCode >= HttpStatus.INTERNAL_SERVER_ERROR) {
         this.logger.error(exception.message, exception.stack);
       } else {
         this.logger.warn(exception.message);
       }
 
-      // Send the response
       return response.status(statusCode).json(errorResponse);
     } else if (ctxType === 'graphql') {
-      // Handle GraphQL context
       const gqlHost = GqlArgumentsHost.create(host);
       gqlHost.getContext();
 
       this.logger.error(exception.message, exception.stack);
 
-      // Return the GraphQL error
       return {
         meta: {
           code: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -67,7 +62,6 @@ export class AppExceptionFilter implements ExceptionFilter {
         },
       };
     } else {
-      // Handle other contexts if needed
       this.logger.error(exception.message, exception.stack);
     }
   }

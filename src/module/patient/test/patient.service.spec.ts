@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { DataSource } from 'typeorm';
 import { Logger } from 'nestjs-pino';
-import { PatientService } from '../patient.service'; // Sesuaikan path jika perlu
+import { PatientService } from '../patient.service';
 import { Patients } from 'src/schema/patients.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { HttpException, HttpStatus } from '@nestjs/common';

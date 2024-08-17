@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { DataSource } from 'typeorm';
 import { Logger } from 'nestjs-pino';
-import { MedicationService } from '../medication.service'; // Sesuaikan path jika perlu
+import { MedicationService } from '../medication.service';
 import { Medications } from 'src/schema/medications.entity';
 import { MedicalHistories } from 'src/schema/medical_histories.entity';
-import { PatientService } from '../../patient/patient.service'; // Sesuaikan path jika perlu
+import { PatientService } from '../../patient/patient.service';
 import { IMedicationPayload, IMedicationResponse, IListMedicalHistoryResponse } from '../medication.interface';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { HttpException, HttpStatus } from '@nestjs/common';
@@ -231,18 +231,18 @@ describe('MedicationService', () => {
       const params = {
         pagination: true,
         patientId: '28402215-9435-4e78-aa3c-c47c41051716',
-        page: 5, // page greater than pageCount
+        page: 5,
         limit: 10,
         keyword: 'Bag',
       };
   
       const mockHistories = [mockMedicationResponse.history];
-      mockRepository.createQueryBuilder().getCount.mockResolvedValue(20); // pageCount will be 2
+      mockRepository.createQueryBuilder().getCount.mockResolvedValue(20);
       mockRepository.createQueryBuilder().getMany.mockResolvedValue(mockHistories);
   
       const result = await service.listMedicalHistory(params);
   
-      expect(result.paginator.page).toBe(2); // adjusted to last page
+      expect(result.paginator.page).toBe(2);
       expect(result.histories).toEqual(mockHistories);
     });
 
@@ -253,34 +253,34 @@ describe('MedicationService', () => {
       };
 
       const mockHistories = [mockMedicationResponse.history];
-      mockRepository.createQueryBuilder().getCount.mockResolvedValue(0); // This will make pageCount 0 or 1
+      mockRepository.createQueryBuilder().getCount.mockResolvedValue(0);
       mockRepository.createQueryBuilder().getMany.mockResolvedValue([]);
 
       const result = await service.listMedicalHistory(params);
 
-      expect(result.paginator.page).toBe(1); // Should remain 1
-      expect(result.histories).toEqual([]); // No histories since count is 0
+      expect(result.paginator.page).toBe(1);
+      expect(result.histories).toEqual([]);
     });
 
     it('should set hasNextPage and nextPage correctly when there is a next page', async () => {
       const params = {
         pagination: true,
         patientId: '28402215-9435-4e78-aa3c-c47c41051716',
-        page: 1, // Current page
+        page: 1,
         limit: 10,
         keyword: 'Bag',
       };
   
       const mockHistories = [mockMedicationResponse.history];
   
-      // Simulasikan ada lebih dari 10 item, sehingga pageCount > 1
+    
       mockRepository.createQueryBuilder().getCount.mockResolvedValue(20);
       mockRepository.createQueryBuilder().getMany.mockResolvedValue(mockHistories);
   
       const result = await service.listMedicalHistory(params);
   
-      expect(result.paginator.hasNextPage).toBe(true); // Karena page < pageCount
-      expect(result.paginator.nextPage).toBe(2); // Karena page < pageCount, nextPage harus page + 1
+      expect(result.paginator.hasNextPage).toBe(true);
+      expect(result.paginator.nextPage).toBe(2);
     });
 
     it('should log an error and throw it when an exception occurs', async () => {
