@@ -4,9 +4,9 @@ export const AppDataSource = new DataSource({
   type: 'postgres',
   host: 'localhost',
   port: 5432,
-  username: 'postgres',
-  password: 'bebaslah1',
-  database: 'emr',
+  username: 'username',
+  password: 'password',
+  database: 'database',
   entities: [__dirname + '/**/*.entity{.ts,.js}'],
   migrations: [__dirname + '/migrations/*{.ts,.js}'],
 });

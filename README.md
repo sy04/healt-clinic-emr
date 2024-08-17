@@ -32,6 +32,33 @@
 $ npm install
 ```
 
+## Migration
+```bash
+# Setup connection database on src/data-source.ts
+export const AppDataSource = new DataSource({
+  type: 'postgres',
+  host: <host>,
+  port: <port>,
+  username: <'username'>,
+  password: <'password'>,
+  database: <'database'>,
+  entities: [__dirname + '/**/*.entity{.ts,.js}'],
+  migrations: [__dirname + '/migrations/*{.ts,.js}'],
+});
+
+# create migrataion
+$ npm migration:crate src/migrations/<migration-name>
+
+# run migration
+$ npm migration:run
+
+# rever migration
+$ npm migration:revert
+
+# notes:
+* npm run build before run migration
+```
+
 ## Running the app
 
 ```bash
@@ -56,6 +83,22 @@ $ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
+```
+
+## Docker
+
+```bash
+# build
+$ docker build -t healt-clinic-emr .
+
+# run postgres
+$ docker run -it -p 5432:5432 -e POSTGRES_PASSWORD=<your-password> postgres
+
+# run app
+$ docker run --rm -p 3000:3000 healt-clinic-emr
+
+# notes:
+* Build database postgres manual from docker app
 ```
 
 ## Support
